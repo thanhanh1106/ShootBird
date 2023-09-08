@@ -40,12 +40,14 @@ public class GameController : Singleton<GameController>
     }
     private void Start()
     {
+        
         isGameStar = false;
         GameGUIManager.Instance.ShowGameGUI(false);
         GameGUIManager.Instance.UpdateKilled(countBirdKilled);
     }
     public void Play()
     {
+        Cursor.visible = false;
         isGameStar = true;
         StartCoroutine(SpawnBirdCountDown());
         StartCoroutine(GameOverCountDown());
@@ -79,6 +81,7 @@ public class GameController : Singleton<GameController>
             if(currentTimeLimit <= 0) 
             {
                 isGameOver = true;
+                Cursor.visible = true;
                 if (countBirdKilled > Prefs.BestScore)
                     GameGUIManager.Instance.GameDialog.UpdateDialog("New Best", "Best Killed:" + countBirdKilled.ToString());
                 else
